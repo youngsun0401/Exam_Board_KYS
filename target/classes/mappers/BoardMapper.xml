@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.study.sample.mapper.BoardMapper">
+
+   <insert id="newPost">
+   		INSERT INTO boardTBL (b_title, b_content, b_writer) VALUES(#{b_title}, #{b_content}, #{b_writer});
+   </insert>
+   
+   <select id="selectAll" resultType="org.study.sample.model.PostDTO">
+		SELECT * FROM boardTBL;
+	</select>
+	
+	<update id="postUpdate">
+		UPDATE boardTBL SET 
+		b_title = #{b_title}, 
+		b_content = #{b_content} 
+		WHERE b_no =#{b_no};
+	</update>
+	
+	<delete id="postDelete">
+		DELETE FROM boardTBL WHERE b_no=#{no};
+	</delete>
+   
+   <select id="select" resultType="org.study.sample.model.PostDTO">
+		SELECT * FROM boardTBL where b_no = ${no};
+	</select>
+   
+   <select id="commentsOnPost" resultType="org.study.sample.model.CommentDTO">
+		SELECT * FROM commentTBL where c_post = ${no};
+	</select>
+
+   <insert id="newComment">
+   		INSERT INTO commentTBL (c_post, c_content, c_writer) VALUES(#{c_post}, #{c_content}, #{c_writer});
+   </insert>
+   
+   <insert id="commentDelete">
+   		DELETE FROM commentTBL WHERE c_id = #{no};
+   </insert>
+</mapper>
